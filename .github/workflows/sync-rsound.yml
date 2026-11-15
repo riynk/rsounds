@@ -1,0 +1,55 @@
+name: Sync RSOUND ZIP
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-rsound-main
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout destination repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Download RSOUND branch ZIP
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL "https://github.com/riynk/retro_music/archive/refs/heads/RSOUND.zip" -o /tmp/rsound.zip
+          mkdir -p /tmp/rsound-source
+          unzip -q /tmp/rsound.zip -d /tmp/rsound-source
+          SOURCE_DIR="$(find /tmp/rsound-source -mindepth 1 -maxdepth 1 -type d -print -quit)"
+          test -n "$SOURCE_DIR"
+          echo "SOURCE_DIR=$SOURCE_DIR" >> "$GITHUB_ENV"
+
+      - name: Copy source into repository root
+        shell: bash
+        run: |
+          set -euo pipefail
+          rsync -a --delete \
+            --exclude='.git/' \
+            --exclude='.github/workflows/' \
+            "$SOURCE_DIR"/ ./
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "riynk"
+          git config user.email "riynkazis@gmail.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No source changes to commit."
+            exit 0
+          fi
+          git commit -m "Sync RSOUND source from ZIP"
+          git push origin HEAD:main
