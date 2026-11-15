@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <code.name.monkey.retromusic.preferences.NowPlayingScreenPreference
+        android:key="now_playing_screen_id"
+        android:layout="@layout/list_item_view"
+        android:title="@string/pref_title_now_playing_screen_appearance"
+        app:icon="@drawable/ic_play_circle_filled" />
+
+    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+        android:icon="@drawable/ic_blur_on"
+        android:defaultValue="album_art"
+        android:entries="@array/plain_blur_background_entries"
+        android:entryValues="@array/plain_blur_background_values"
+        android:key="plain_blur_background_source"
+        android:layout="@layout/list_item_view"
+        android:summary="@string/pref_plain_atmosphere_background_summary"
+        android:title="@string/pref_plain_atmosphere_background_source" />
+
+    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:icon="@drawable/ic_info_outline"
+        android:defaultValue="false"
+        android:key="extra_song_info"
+        android:layout="@layout/list_item_view_switch"
+        android:summary="@string/pref_summary_extra_song_info"
+        android:title="@string/pref_title_extra_song_info" />
+
+    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+        android:icon="@drawable/ic_snowflake"
+        android:defaultValue="false"
+        android:key="snowfall"
+        android:layout="@layout/list_item_view_switch_no_title"
+        android:title="@string/pref_snow_fall_title" />
+
+    <androidx.preference.PreferenceScreen
+        android:key="lyrics_settings"
+        android:layout="@layout/list_item_view"
+        android:title="@string/pref_header_lyrics"
+        android:icon="@drawable/ic_lyrics">
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+            android:icon="@drawable/ic_lyrics"
+            android:defaultValue="0"
+            android:entries="@array/pref_lyrics_type_entries"
+            android:entryValues="@array/pref_lyrics_type_values"
+            android:key="lyrics_type"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_lyrics_type"
+            android:summary="@string/pref_summary_lyrics_type" />
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+            android:layout="@layout/preference_category_title"
+            android:title="@string/pref_header_lyrics_behavior">
+
+            <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+                android:icon="@drawable/ic_lyrics_outline"
+                android:defaultValue="true"
+                android:key="lyrics_word_highlight"
+                android:layout="@layout/list_item_view_switch"
+                android:summary="@string/pref_lyrics_word_highlight_summary"
+                android:title="@string/pref_lyrics_word_highlight" />
+
+            <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+                android:icon="@drawable/ic_screen_lock_portrait"
+                android:defaultValue="false"
+                android:key="screen_on_lyrics"
+                android:layout="@layout/list_item_view_switch"
+                android:summary="@string/pref_keep_screen_on_summary"
+                android:title="@string/pref_title_lyrics_screen_on" />
+        </code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+            android:layout="@layout/preference_category_title"
+            android:title="@string/pref_header_lyrics_translation">
+
+            <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                android:icon="@drawable/ic_language"
+                android:defaultValue="id"
+                android:entries="@array/pref_lyrics_language_names"
+                android:entryValues="@array/pref_lyrics_language_codes"
+                android:key="lyrics_translation_language"
+                android:layout="@layout/list_item_view"
+                android:title="@string/pref_lyrics_translation_language"
+                android:summary="@string/pref_lyrics_translation_language_summary" />
+        
+            <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                android:defaultValue="sans-serif"
+                android:entries="@array/pref_lyrics_font_names"
+                android:entryValues="@array/pref_lyrics_font_values"
+                android:key="lyrics_translation_font_family"
+                android:layout="@layout/list_item_view"
+                android:title="@string/pref_lyrics_translation_font_family" />
+
+            <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+                android:defaultValue="14"
+                android:key="lyrics_translation_text_size"
+                android:layout="@layout/list_item_view_seekbar"
+                android:max="30"
+                android:min="10"
+                android:title="@string/pref_lyrics_translation_text_size"
+                app:showSeekBarValue="true" />
+
+            <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                android:defaultValue="theme"
+                android:entries="@array/pref_lyrics_translation_color_names"
+                android:entryValues="@array/pref_lyrics_translation_color_values"
+                android:key="lyrics_translation_color"
+                android:layout="@layout/list_item_view"
+                android:title="@string/pref_lyrics_translation_color" />
+</code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+    
+
+        <androidx.preference.PreferenceScreen
+                android:key="lyrics_appearance_settings"
+                android:layout="@layout/list_item_view"
+                android:title="@string/pref_header_lyrics_appearance"
+                android:icon="@drawable/ic_lyrics_outline">
+        
+                <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+                    android:defaultValue="5"
+                    android:key="lyrics_line_spacing"
+                    android:layout="@layout/list_item_view_seekbar"
+                    android:max="20"
+                    android:min="0"
+                    android:title="@string/pref_lyrics_line_spacing"
+                    android:summary="@string/pref_lyrics_line_spacing_summary"
+                    app:showSeekBarValue="true" />
+        
+        
+                <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+                    android:layout="@layout/preference_category_title"
+                    android:title="@string/pref_lyrics_replace_cover">
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+                        android:defaultValue="30"
+                        android:key="lyrics_replace_text_size"
+                        android:layout="@layout/list_item_view_seekbar"
+                        android:max="42"
+                        android:min="14"
+                        android:title="@string/pref_lyrics_text_size"
+                        app:showSeekBarValue="true" />
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                        android:defaultValue="sans-serif"
+                        android:entries="@array/pref_lyrics_font_names"
+                        android:entryValues="@array/pref_lyrics_font_values"
+                        android:key="lyrics_replace_font_family"
+                        android:layout="@layout/list_item_view"
+                        android:title="@string/pref_lyrics_font_family" />
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                        android:defaultValue="center"
+                        android:entries="@array/pref_lyrics_alignment_names"
+                        android:entryValues="@array/pref_lyrics_alignment_values"
+                        android:key="lyrics_replace_alignment"
+                        android:layout="@layout/list_item_view"
+                        android:title="@string/pref_lyrics_alignment" />
+                </code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+        
+                <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+                    android:layout="@layout/preference_category_title"
+                    android:title="@string/pref_lyrics_over_cover">
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+                        android:defaultValue="25"
+                        android:key="lyrics_over_text_size"
+                        android:layout="@layout/list_item_view_seekbar"
+                        android:max="42"
+                        android:min="14"
+                        android:title="@string/pref_lyrics_text_size"
+                        app:showSeekBarValue="true" />
+        
+                            <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+            android:defaultValue="45"
+            android:key="lyrics_over_artwork_dim"
+            android:layout="@layout/list_item_view_seekbar"
+            android:max="80"
+            android:min="0"
+            android:title="@string/pref_lyrics_over_artwork_dim"
+            android:summary="@string/pref_lyrics_over_artwork_dim_summary"
+            app:showSeekBarValue="true" />
+
+<code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                        android:defaultValue="3"
+                        android:entries="@array/pref_lyrics_line_count_names"
+                        android:entryValues="@array/pref_lyrics_line_count_values"
+                        android:key="lyrics_over_line_count"
+                        android:layout="@layout/list_item_view"
+                        android:title="@string/pref_lyrics_visible_lines"
+                        android:summary="@string/pref_lyrics_visible_lines_summary" />
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                        android:defaultValue="sans-serif"
+                        android:entries="@array/pref_lyrics_font_names"
+                        android:entryValues="@array/pref_lyrics_font_values"
+                        android:key="lyrics_over_font_family"
+                        android:layout="@layout/list_item_view"
+                        android:title="@string/pref_lyrics_font_family" />
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                        android:defaultValue="center"
+                        android:entries="@array/pref_lyrics_alignment_names"
+                        android:entryValues="@array/pref_lyrics_alignment_values"
+                        android:key="lyrics_over_alignment"
+                        android:layout="@layout/list_item_view"
+                        android:title="@string/pref_lyrics_alignment" />
+                </code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+        
+                <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory
+                    android:layout="@layout/preference_category_title"
+                    android:title="@string/pref_lyrics_full_page">
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+                        android:defaultValue="28"
+                        android:key="lyrics_page_text_size"
+                        android:layout="@layout/list_item_view_seekbar"
+                        android:max="42"
+                        android:min="14"
+                        android:title="@string/pref_lyrics_text_size"
+                        app:showSeekBarValue="true" />
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                        android:defaultValue="sans-serif"
+                        android:entries="@array/pref_lyrics_font_names"
+                        android:entryValues="@array/pref_lyrics_font_values"
+                        android:key="lyrics_page_font_family"
+                        android:layout="@layout/list_item_view"
+                        android:title="@string/pref_lyrics_font_family" />
+        
+                    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+                        android:defaultValue="center"
+                        android:entries="@array/pref_lyrics_alignment_names"
+                        android:entryValues="@array/pref_lyrics_alignment_values"
+                        android:key="lyrics_page_alignment"
+                        android:layout="@layout/list_item_view"
+                        android:title="@string/pref_lyrics_alignment" />
+                </code.name.monkey.appthemehelper.common.prefs.supportv7.ATEPreferenceCategory>
+            </androidx.preference.PreferenceScreen>
+    </androidx.preference.PreferenceScreen>
+
+    
+
+    
+
+    
+
+    <androidx.preference.PreferenceScreen
+        android:key="album_style_settings"
+        android:layout="@layout/list_item_view"
+        android:title="@string/pref_header_album"
+        android:icon="@drawable/ic_image">
+
+        <code.name.monkey.retromusic.preferences.AlbumCoverStylePreference
+            android:key="album_cover_style_id"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_album_cover_style"
+            app:icon="@drawable/ic_image" />
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
+        android:icon="@drawable/ic_skip_next"
+            android:defaultValue="0"
+            android:entries="@array/pref_album_cover_transform_entries"
+            android:entryValues="@array/pref_album_cover_transform_values"
+            android:key="album_cover_transform"
+            android:layout="@layout/list_item_view"
+            android:title="@string/pref_title_album_cover_transform" />
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            android:icon="@drawable/ic_view_carousel"
+            app:key="carousel_effect"
+            app:summary="@string/pref_summary_carousel_effect"
+            app:title="@string/pref_title_toggle_carousel_effect" />
+    </androidx.preference.PreferenceScreen>
+
+    <androidx.preference.PreferenceScreen
+        android:key="now_playing_controls_settings"
+        android:layout="@layout/list_item_view"
+        android:title="@string/pref_header_controls"
+        android:icon="@drawable/ic_play_arrow">
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+                android:icon="@drawable/ic_play_circle_filled"
+                android:defaultValue="false"
+                android:key="circle_play_button"
+                android:layout="@layout/list_item_view_switch_no_title"
+                android:title="@string/pref_title_circle_button" />
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+                android:icon="@drawable/ic_drag_vertical"
+                android:defaultValue="true"
+                android:key="swipe_anywhere_now_playing"
+                android:layout="@layout/list_item_view_switch"
+                android:summary="@string/pref_summary_swipe_anywhere_now_playing"
+                android:title="@string/pref_title_swipe_anywhere_now_playing" />
+
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:icon="@drawable/ic_expand_less"
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            app:key="swipe_to_dismiss"
+            app:summary="@string/pref_summary_swipe_to_dismiss"
+            app:title="@string/pref_title_swipe_to_dismiss" />
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            android:icon="@drawable/ic_play_arrow"
+            app:key="toggle_add_controls"
+            app:summary="@string/pref_summary_extra_controls"
+            app:title="@string/pref_title_extra_controls" />
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            android:icon="@drawable/ic_volume_up"
+            app:key="toggle_volume"
+            app:summary="@string/pref_summary_toggle_volume"
+            app:title="@string/pref_title_toggle_volume" />
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
+            android:layout="@layout/list_item_view_switch"
+            app:defaultValue="false"
+            android:icon="@drawable/ic_expand_less"
+            app:key="expand_now_playing_panel"
+            app:summary="@string/pref_summary_expand_now_playing_panel"
+            app:title="@string/pref_title_expand_now_playing_panel" />
+
+        <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESeekBarPreference
+            android:defaultValue="12"
+            android:key="new_blur_amount"
+            android:layout="@layout/list_item_view_seekbar"
+            android:max="25"
+            android:summary="@string/pref_blur_amount_summary"
+            android:title="@string/pref_blur_amount_title"
+            app:ateKey_pref_unit="px"
+            android:icon="@drawable/ic_blur_on"
+            app:showSeekBarValue="true" />
+    </androidx.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="true"
+    android:clipToPadding="true">
+
+    <FrameLayout
+        android:id="@+id/playerLyrics"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:padding="16dp"
+        android:visibility="gone"
+        tools:alpha="1"
+        tools:visibility="visible">
+
+        <code.name.monkey.retromusic.lyrics.KaraokeLyricsView
+            android:id="@+id/lyricsView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            android:overScrollMode="never" />
+    </FrameLayout>
+</FrameLayout>

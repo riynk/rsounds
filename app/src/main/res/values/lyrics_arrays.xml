@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_lyrics_language_names">
+        <item>Indonesian</item>
+        <item>English</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Chinese</item>
+        <item>Spanish</item>
+        <item>French</item>
+        <item>German</item>
+    </string-array>
+    <string-array name="pref_lyrics_language_codes">
+        <item>id</item>
+        <item>en</item>
+        <item>ja</item>
+        <item>ko</item>
+        <item>zh</item>
+        <item>es</item>
+        <item>fr</item>
+        <item>de</item>
+    </string-array>
+
+    <string-array name="pref_lyrics_font_names">
+        <item>System default</item>
+        <item>Sans serif</item>
+        <item>Serif</item>
+        <item>Monospace</item>
+        <item>Casual</item>
+        <item>Cursive</item>
+        <item>Sans serif condensed</item>
+    </string-array>
+    <string-array name="pref_lyrics_font_values">
+        <item>default</item>
+        <item>sans-serif</item>
+        <item>serif</item>
+        <item>monospace</item>
+        <item>casual</item>
+        <item>cursive</item>
+        <item>sans-serif-condensed</item>
+    </string-array>
+    <string-array name="pref_lyrics_alignment_names">
+        <item>Left</item>
+        <item>Center</item>
+        <item>Right</item>
+    </string-array>
+    <string-array name="pref_lyrics_alignment_values">
+        <item>left</item>
+        <item>center</item>
+        <item>right</item>
+    </string-array>
+
+    <string-array name="pref_lyrics_line_count_names">
+        <item>1 line</item>
+        <item>2 lines</item>
+        <item>3 lines</item>
+        <item>4 lines</item>
+    </string-array>
+    <string-array name="pref_lyrics_line_count_values">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+
+
+    <string-array name="pref_lyrics_translation_color_names">
+        <item>Follow lyric theme</item>
+        <item>White</item>
+        <item>Silver</item>
+        <item>Cyan</item>
+        <item>Pink</item>
+        <item>Amber</item>
+        <item>Mint</item>
+    </string-array>
+    <string-array name="pref_lyrics_translation_color_values">
+        <item>theme</item>
+        <item>white</item>
+        <item>silver</item>
+        <item>cyan</item>
+        <item>pink</item>
+        <item>amber</item>
+        <item>mint</item>
+    </string-array>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <group
+        android:name="logoGroup"
+        android:pivotX="256"
+        android:pivotY="256"
+        android:scaleX="0.84"
+        android:scaleY="0.84"
+        android:translateY="22">
+
+        <path
+            android:name="rMark"
+            android:fillColor="#F8F7FF"
+            android:pathData="M104,103 L304,103 C361,103 407,149 407,206 C407,249 378,280 334,294 L391,362 C397,369 397,376 390,382 L340,420 C334,425 325,424 319,418 L217,319 C202,305 204,285 222,275 L302,231 C319,222 330,206 330,188 C330,163 310,142 285,142 L104,142 C90,142 83,133 79,122 C83,111 91,103 104,103 Z" />
+
+        <group
+            android:name="playGroup"
+            android:pivotX="183"
+            android:pivotY="244"
+            android:scaleX="0.65"
+            android:scaleY="0.65"
+            android:alpha="0">
+            <path
+                android:name="playMark"
+                android:pathData="M139,160 C126,152 109,159 109,175 L109,307 C109,325 127,334 143,325 L257,259 C274,249 274,228 257,218 Z">
+                <aapt:attr name="android:fillColor">
+                    <gradient
+                        android:type="linear"
+                        android:startX="112"
+                        android:startY="168"
+                        android:endX="264"
+                        android:endY="314">
+                        <item android:color="#FF087DFF" android:offset="0" />
+                        <item android:color="#FFE600A8" android:offset="0.55" />
+                        <item android:color="#FF8700FF" android:offset="1" />
+                    </gradient>
+                </aapt:attr>
+            </path>
+        </group>
+    </group>
+</vector>
