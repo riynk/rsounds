@@ -1,0 +1,97 @@
+name: Replace screenshots and notification preview assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Screenshot tampilan aplikasi.zip"
+      - ".github/workflows/replace-image-assets.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  replace-assets:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Extract and replace matching JPG and WEBP assets
+        run: |
+          python -m pip install --quiet Pillow
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          from PIL import Image
+          import io, re
+
+          archive = Path("Screenshot tampilan aplikasi.zip")
+          webp_names = {
+              "Plain Atmosphere": "np_minimalistic_circle.webp",
+              "Tiny": "np_tiny.webp",
+              "Simple": "np_simple.webp",
+              "Plain": "np_plain.webp",
+              "Peek": "np_peek.webp",
+              "Normal": "np_normal.webp",
+              "MD3": "np_md3.webp",
+              "Material": "np_material.webp",
+              "Gradient": "np_gradient.webp",
+              "Full": "np_full.webp",
+              "Flat": "np_flat.webp",
+              "Fit": "np_fit.webp",
+              "Color": "np_color.webp",
+              "Classic": "np_classic.webp",
+              "Circle": "np_circle.webp",
+              "Card": "np_card.webp",
+              "Blur Card": "np_blur_card.webp",
+              "blur": "np_blur.webp",
+              "adaptive": "np_adaptive.webp",
+          }
+          screenshot_targets = {
+              "adaptive": "screenshots/adaptive.jpg",
+              "blur": "screenshots/blur.jpg",
+              "classic": "screenshots/classic.jpg",
+              "color": "screenshots/color.jpg",
+              "fit": "screenshots/fit.jpg",
+              "flat": "screenshots/flat.jpg",
+              "material": "screenshots/material.jpg",
+              "peek": "screenshots/peek.jpg",
+              "tiny": "screenshots/tiny.jpg",
+          }
+          out = Path("app/src/main/res/drawable-xxxhdpi")
+          count_webp = count_jpg = 0
+          with ZipFile(archive) as zf:
+              for member in zf.namelist():
+                  p = Path(member)
+                  if p.suffix.lower() not in (".jpg", ".jpeg"):
+                      continue
+                  stem = p.stem.strip()
+                  data = zf.read(member)
+                  if stem in webp_names:
+                      with Image.open(io.BytesIO(data)) as im:
+                          im.convert("RGB").save(out / webp_names[stem], "WEBP", quality=90, method=6)
+                      count_webp += 1
+                  target = screenshot_targets.get(stem.lower())
+                  if target:
+                      Path(target).write_bytes(data)
+                      count_jpg += 1
+          if count_webp != 19:
+              raise SystemExit(f"Expected 19 WEBP replacements, got {count_webp}")
+          print(f"Replaced {count_webp} WEBP assets and {count_jpg} matching JPG screenshots.")
+          PY
+      - name: Commit replacements
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/res/drawable-xxxhdpi/np_*.webp screenshots/*.jpg
+          if git diff --cached --quiet; then
+            echo "No image changes to commit."
+            exit 0
+          fi
+          git commit -m "Replace notification preview and matching screenshot images"
+          git push origin main
