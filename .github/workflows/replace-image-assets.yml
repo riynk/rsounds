@@ -21,14 +21,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Extract and replace matching JPG and WEBP assets
+      - name: Replace existing JPG screenshots, then generate WEBP assets
         run: |
           python -m pip install --quiet Pillow
           python - <<'PY'
           from pathlib import Path
           from zipfile import ZipFile
           from PIL import Image
-          import io, re
+          import io
 
           archive = Path("Screenshot tampilan aplikasi.zip")
           webp_names = {
@@ -63,26 +63,36 @@ jobs:
               "peek": "screenshots/peek.jpg",
               "tiny": "screenshots/tiny.jpg",
           }
-          out = Path("app/src/main/res/drawable-xxxhdpi")
-          count_webp = count_jpg = 0
+
+          # Extract all source JPGs first, preserving the original bytes.
+          extracted = {}
           with ZipFile(archive) as zf:
               for member in zf.namelist():
                   p = Path(member)
-                  if p.suffix.lower() not in (".jpg", ".jpeg"):
-                      continue
-                  stem = p.stem.strip()
-                  data = zf.read(member)
-                  if stem in webp_names:
-                      with Image.open(io.BytesIO(data)) as im:
-                          im.convert("RGB").save(out / webp_names[stem], "WEBP", quality=90, method=6)
-                      count_webp += 1
-                  target = screenshot_targets.get(stem.lower())
-                  if target:
-                      Path(target).write_bytes(data)
-                      count_jpg += 1
-          if count_webp != 19:
-              raise SystemExit(f"Expected 19 WEBP replacements, got {count_webp}")
-          print(f"Replaced {count_webp} WEBP assets and {count_jpg} matching JPG screenshots.")
+                  if p.suffix.lower() in (".jpg", ".jpeg") and p.stem.strip() in webp_names:
+                      extracted[p.stem.strip()] = zf.read(member)
+
+          if len(extracted) != 19:
+              raise SystemExit(f"Expected 19 source JPGs, found {len(extracted)}")
+
+          # Step 1: replace the existing matching JPG files in the repository.
+          replaced_jpg = 0
+          for stem, target in screenshot_targets.items():
+              if stem.lower() in {name.lower() for name in extracted}:
+                  target_path = Path(target)
+                  if not target_path.is_file():
+                      raise SystemExit(f"Expected existing JPG target is missing: {target}")
+                  source_stem = next(name for name in extracted if name.lower() == stem.lower())
+                  target_path.write_bytes(extracted[source_stem])
+                  replaced_jpg += 1
+
+          # Step 2: generate all WEBP assets from those extracted JPG sources.
+          out = Path("app/src/main/res/drawable-xxxhdpi")
+          for stem, filename in webp_names.items():
+              with Image.open(io.BytesIO(extracted[stem])) as im:
+                  im.convert("RGB").save(out / filename, "WEBP", quality=90, method=6)
+
+          print(f"Replaced {replaced_jpg} existing JPG screenshots first, then generated {len(webp_names)} WEBP assets.")
           PY
       - name: Commit replacements
         run: |
@@ -90,8 +100,8 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add app/src/main/res/drawable-xxxhdpi/np_*.webp screenshots/*.jpg
           if git diff --cached --quiet; then
-            echo "No image changes to commit."
+            echo "JPG and WEBP assets already match the ZIP sources."
             exit 0
           fi
-          git commit -m "Replace notification preview and matching screenshot images"
+          git commit -m "Update JPG screenshots then regenerate WEBP assets"
           git push origin main
