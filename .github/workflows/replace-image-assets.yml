@@ -96,8 +96,8 @@ jobs:
           PY
       - name: Commit replacements
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "riynk"
+          git config user.email "riynkazis@gmail.com"
           git add app/src/main/res/drawable-xxxhdpi/np_*.webp screenshots/*.jpg
           if git diff --cached --quiet; then
             echo "JPG and WEBP assets already match the ZIP sources."
